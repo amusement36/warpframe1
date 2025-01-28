@@ -1,5 +1,7 @@
 // app/page.tsx
 
+"use client";  // This directive marks this component as a client-side component
+
 import React, { useState } from "react";
 
 const VideoFrame = ({ videoUrl }: { videoUrl: string }) => {
