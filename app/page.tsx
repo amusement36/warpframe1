@@ -1,24 +1,22 @@
-"use client"; // This directive marks this component as a client-side component
+"use client";
 
 import React, { useState } from "react";
 
 const VideoFrame = ({ videoUrl }: { videoUrl: string }) => {
   const getVideoId = (url: string) => {
-    // Check for YouTube Shorts URL
     const shortsRegex = /(?:https?:\/\/(?:www\.)?youtube\.com\/shorts\/)([a-zA-Z0-9_-]{11})/;
     const matchShorts = url.match(shortsRegex);
     if (matchShorts) {
       return matchShorts[1];
     }
 
-    // Check for regular YouTube video URL
     const regularRegex = /(?:https?:\/\/(?:www\.)?youtube\.com\/(?:watch\?v=|v\/|e\/|shorts\/))([a-zA-Z0-9_-]{11})/;
     const matchRegular = url.match(regularRegex);
     if (matchRegular) {
       return matchRegular[1];
     }
 
-    return null; // Return null if no valid video ID is found
+    return null;
   };
 
   const videoId = getVideoId(videoUrl);
@@ -26,6 +24,17 @@ const VideoFrame = ({ videoUrl }: { videoUrl: string }) => {
   if (!videoId) {
     return <p>Invalid YouTube URL</p>;
   }
+
+  // Here, you need to inject the meta tags
+  const metaTags = `
+    <meta property="og:video" content="https://www.youtube.com/watch?v=${videoId}" />
+    <meta property="og:video:secure_url" content="https://www.youtube.com/watch?v=${videoId}" />
+    <meta property="og:image" content="https://img.youtube.com/vi/${videoId}/0.jpg" />
+    <meta property="og:title" content="YouTube Video Embed" />
+    <meta property="og:description" content="A short description of the YouTube video" />
+  `;
+
+  // Inject the meta tags to the head of the document or use the preferred method in Warpcast for dynamic content
 
   return (
     <div className="video-frame-container">
@@ -48,7 +57,6 @@ export default function Home() {
     const url = event.target.value;
     setVideoUrl(url);
 
-    // Validate YouTube URL (Shorts or regular)
     const regex = /(?:https?:\/\/(?:www\.)?youtube\.com\/(?:shorts\/[a-zA-Z0-9_-]{11}|watch\?v=[a-zA-Z0-9_-]{11}))/;
     setIsValid(regex.test(url));
   };
