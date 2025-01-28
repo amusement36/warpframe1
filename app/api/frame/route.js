@@ -1,4 +1,4 @@
-import { getFrameHtmlResponse } from '@coinbase/onchainkit/frame';
+import { getFrameHtmlResponse } from './frames';  // Correct relative path
 import { NextResponse } from 'next/server';
 
 export const dynamic = 'force-dynamic'; // Disable caching
@@ -45,7 +45,7 @@ function getVideoFrame(videoId) {
     );
 }
 
-function getErrorFrame(message) {
+function getErrorFrame() {
     return new NextResponse(
         getFrameHtmlResponse({
             image: {
