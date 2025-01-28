@@ -1,4 +1,4 @@
-"use client";  // This directive marks this component as a client-side component
+"use client"; // This directive marks this component as a client-side component
 
 import React, { useState } from "react";
 
@@ -28,9 +28,9 @@ const VideoFrame = ({ videoUrl }: { videoUrl: string }) => {
   }
 
   return (
-    <div className="w-full h-64 sm:h-96">
+    <div className="video-frame-container">
       <iframe
-        className="w-full h-full"
+        className="video-frame"
         src={`https://www.youtube.com/embed/${videoId}?autoplay=1&mute=1&controls=1`}
         frameBorder="0"
         allow="autoplay; encrypted-media"
@@ -54,14 +54,14 @@ export default function Home() {
   };
 
   return (
-    <div className="grid gap-8 p-8">
-      <h1>Welcome to the YouTube Video Viewer</h1>
+    <div className="main-container">
+      <h1 className="title">Welcome to the YouTube Video Viewer</h1>
       <input
         type="text"
         placeholder="Enter YouTube URL"
         value={videoUrl}
         onChange={handleUrlChange}
-        className="border p-2"
+        className="url-input"
       />
       {!isValid && <p className="text-red-500">Please enter a valid YouTube URL</p>}
       {isValid && videoUrl && <VideoFrame videoUrl={videoUrl} />}
